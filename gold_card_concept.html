@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Из Династии Звёзд — Золотая карточка</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:#0a0a0c;
+    font-family:'Montserrat',sans-serif;
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:40px 20px;
+    gap:40px;flex-wrap:wrap;
+  }
+  /* ===== ЗОЛОТАЯ КАРТОЧКА ЩЕНКА (формат поста/сторис) ===== */
+  .card{
+    width:430px;
+    background:linear-gradient(160deg,#14110a 0%,#1c1810 45%,#0d0b07 100%);
+    border-radius:24px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(201,162,39,.25);
+  }
+  /* золотая рамка-сертификат */
+  .card::before{
+    content:"";position:absolute;inset:14px;
+    border:1.5px solid transparent;
+    border-radius:14px;
+    background:linear-gradient(135deg,#c9a227,#f4e4a6,#c9a227,#8a6d18) border-box;
+    -webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+    pointer-events:none;z-index:3;
+  }
+  .crest{
+    text-align:center;padding:26px 0 10px;position:relative;z-index:2;
+  }
+  .crest .star{font-size:26px;filter:drop-shadow(0 0 8px rgba(244,228,166,.5))}
+  .crest .house{
+    font-family:'Cormorant Garamond',serif;
+    color:#f4e4a6;font-size:13px;letter-spacing:5px;
+    text-transform:uppercase;margin-top:4px;font-weight:600;
+  }
+  .crest .sub{color:#9a8a5c;font-size:8.5px;letter-spacing:3px;margin-top:3px;text-transform:uppercase}
+  /* фото-зона */
+  .photo{
+    margin:8px 26px;height:330px;border-radius:12px;
+    background:
+      radial-gradient(circle at 50% 38%, #3a3322, #16130b 75%);
+    position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid rgba(201,162,39,.2);
+  }
+  .photo .ph{
+    font-size:120px;filter:drop-shadow(0 10px 30px rgba(0,0,0,.6));
+  }
+  .photo .holo{
+    position:absolute;top:14px;right:14px;
+    background:rgba(10,10,12,.7);backdrop-filter:blur(6px);
+    border:1px solid rgba(201,162,39,.5);
+    color:#f4e4a6;font-size:9px;letter-spacing:1.5px;
+    padding:6px 11px;border-radius:20px;font-weight:600;
+  }
+  .photo .rare{
+    position:absolute;bottom:14px;left:14px;
+    background:linear-gradient(90deg,#c9a227,#8a6d18);
+    color:#14110a;font-size:9px;font-weight:700;letter-spacing:1px;
+    padding:6px 12px;border-radius:6px;text-transform:uppercase;
+  }
+  /* имя и описание */
+  .body{padding:6px 30px 4px;position:relative;z-index:2}
+  .name{
+    font-family:'Cormorant Garamond',serif;
+    color:#f7efd4;font-size:34px;font-weight:600;line-height:1;
+    text-align:center;margin-bottom:2px;
+  }
+  .breed{
+    text-align:center;color:#c9a227;font-size:10px;
+    letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;
+  }
+  .tagline{
+    text-align:center;color:#cfc6ad;font-size:13px;font-weight:300;
+    line-height:1.5;font-style:italic;
+    font-family:'Cormorant Garamond',serif;font-size:16px;
+    margin-bottom:18px;padding:0 6px;
+  }
+  /* сертификат-строки */
+  .specs{
+    display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;
+    padding:16px 4px;border-top:1px solid rgba(201,162,39,.18);
+    border-bottom:1px solid rgba(201,162,39,.18);margin-bottom:16px;
+  }
+  .spec{display:flex;align-items:center;gap:7px}
+  .spec .ic{font-size:13px;width:16px;text-align:center}
+  .spec .t{color:#b7ad90;font-size:10.5px;letter-spacing:.3px}
+  .spec .t b{color:#f0e7c8;font-weight:600}
+  /* цена + cta */
+  .foot{padding:2px 0 24px;text-align:center}
+  .price{
+    color:#f4e4a6;font-family:'Cormorant Garamond',serif;
+    font-size:26px;font-weight:600;letter-spacing:1px;
+  }
+  .price small{display:block;color:#8a7d56;font-size:9px;letter-spacing:2px;
+    text-transform:uppercase;font-family:'Montserrat';margin-bottom:3px;font-weight:400}
+  .cta{
+    margin:16px 30px 0;padding:13px;border-radius:10px;
+    background:linear-gradient(90deg,#c9a227,#f4e4a6 50%,#c9a227);
+    color:#14110a;font-weight:700;font-size:12px;letter-spacing:1.5px;
+    text-transform:uppercase;text-align:center;
+  }
+  .handle{text-align:center;color:#6f6444;font-size:9px;letter-spacing:2px;margin-top:10px}
+  /* ====== ПОЯСНЕНИЕ СБОКУ ====== */
+  .note{max-width:340px;color:#cfc6ad;font-size:14px;line-height:1.7}
+  .note h2{font-family:'Cormorant Garamond',serif;color:#f4e4a6;font-size:26px;margin-bottom:14px;font-weight:600}
+  .note .row{margin-bottom:14px;padding-left:16px;border-left:2px solid #c9a227}
+  .note b{color:#f0e7c8}
+  .note .bad{color:#8a7a6a;text-decoration:line-through}
+  .note .good{color:#e8c95a}
+</style>
+</head>
+<body>
+
+  <!-- ЗОЛОТАЯ КАРТОЧКА -->
+  <div class="card">
+    <div class="crest">
+      <div class="star">💫</div>
+      <div class="house">Из Династии Звёзд</div>
+      <div class="sub">Premium Cattery · Est. родословная РКФ</div>
+    </div>
+
+    <div class="photo">
+      <div class="ph">🐩</div>
+      <div class="holo">✦ ПОДЛИННИК · РКФ</div>
+      <div class="rare">единственный в помёте</div>
+    </div>
+
+    <div class="body">
+      <div class="name">Феррари</div>
+      <div class="breed">Мальтипу F1 mini · baby-face</div>
+      <div class="tagline">«Белая грудка, бархатная чёлка и взгляд,<br>от которого тает сердце»</div>
+
+      <div class="specs">
+        <div class="spec"><span class="ic">📜</span><span class="t"><b>Родословная</b> РКФ</span></div>
+        <div class="spec"><span class="ic">🔖</span><span class="t"><b>Клеймо</b> + чип</span></div>
+        <div class="spec"><span class="ic">💉</span><span class="t"><b>Привит</b> импорт.</span></div>
+        <div class="spec"><span class="ic">⚖️</span><span class="t"><b>2 кг</b> · мини</span></div>
+        <div class="spec"><span class="ic">🩺</span><span class="t"><b>Гарантия</b> здоровья</span></div>
+        <div class="spec"><span class="ic">📄</span><span class="t"><b>Договор</b> + паспорт</span></div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="price"><small>Инвестиция в компаньона</small>120 000 ₽</div>
+    </div>
+    <div class="cta">Познакомиться с Феррари →</div>
+    <div class="handle">@Poodle_first · из династии звёзд</div>
+  </div>
+
+  <!-- ПОЯСНЕНИЕ -->
+  <div class="note">
+    <h2>🥇 Вот это — «золото»</h2>
+    <div class="row">Тот же щенок Феррари, та же цена <b>120 000 ₽</b>. Но подан как <b>ювелирное изделие с сертификатом</b>, а не строчка с доски объявлений.</div>
+    <div class="row"><span class="bad">«свободен мальчик, приятная цена, успевайте 🔥»</span><br>→ <span class="good">«единственный в помёте, родословная РКФ, baby-face»</span></div>
+    <div class="row"><b>Документы вынесены в витрину</b> — РКФ, чип, клеймо, гарантия. Это и оправдывает дорогой сегмент.</div>
+    <div class="row"><b>Тёмный фон + золото</b> = код премиума. Телефон убран — ведём в консьерж-бота.</div>
+    <div class="row">Дефицит через <b>уникальность</b> («единственный такой»), а не через «успевайте».</div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Из Династии Звёзд — Сага о восхождении · AI-Powered</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Montserrat:wght@200;300;400;500;600;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --gold:#c9a227; --gold-l:#f4e4a6; --gold-d:#8a6d18;
+    --ai:#46e4ff; --ai-d:#1a8fb0;
+    --bg:#070608; --ink:#f7efd4; --muted:#b7ad90; --dim:#6f6444;
+    --serif:'Cormorant Garamond',serif; --sans:'Montserrat',sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);font-family:var(--sans);color:var(--ink);line-height:1.7;overflow-x:hidden}
+
+  /* фоновое золотое сияние + AI-частицы */
+  .bg-fx{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(201,162,39,.06), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(70,228,255,.05), transparent 45%),
+      radial-gradient(circle at 50% 100%, rgba(201,162,39,.05), transparent 40%);}
+  .wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:0 24px}
+
+  /* ── reveal-анимация ── */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ════ COVER ════ */
+  .cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding:60px 24px}
+  .cover .ai-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(70,228,255,.08);
+    border:1px solid rgba(70,228,255,.35);color:var(--ai);font-size:11px;letter-spacing:4px;
+    text-transform:uppercase;padding:9px 20px;border-radius:30px;margin-bottom:38px;font-weight:600}
+  .ai-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--ai);box-shadow:0 0 10px var(--ai);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .cover .crest{font-size:72px;filter:drop-shadow(0 0 30px rgba(244,228,166,.6));margin-bottom:14px;animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .cover h1{font-family:var(--serif);font-size:68px;font-weight:700;letter-spacing:6px;text-transform:uppercase;line-height:1;
+    background:linear-gradient(180deg,#fff6dc,#f4e4a6 35%,#c9a227 70%,#8a6d18);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .cover .tagline{color:var(--gold);font-size:13px;letter-spacing:6px;text-transform:uppercase;margin-top:18px}
+  .cover .promise{font-family:var(--serif);font-style:italic;font-size:25px;color:var(--muted);margin-top:34px;max-width:600px;line-height:1.5}
+  .scroll-cue{position:absolute;bottom:34px;color:var(--dim);font-size:11px;letter-spacing:3px;text-transform:uppercase;animation:bob 2s infinite}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(8px);opacity:1}}
+
+  /* ════ CHAPTER ════ */
+  .chapter{padding:90px 0 30px}
+  .ch-no{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:16px;letter-spacing:3px;margin-bottom:8px}
+  .ch-title{font-family:var(--serif);font-size:46px;font-weight:600;line-height:1.1;margin-bottom:26px}
+  .ch-title .g{color:var(--gold-l)}
+  .ch-title .a{color:var(--ai)}
+  p.lede{font-size:18px;color:#e3dabd;margin-bottom:18px;font-weight:300}
+  p.body{font-size:15.5px;color:var(--muted);margin-bottom:16px;font-weight:300}
+  p.body b{color:var(--ink);font-weight:500}
+  p.body .ai{color:var(--ai);font-weight:500}
+  .pull{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--gold-l);line-height:1.4;
+    border-left:3px solid var(--gold);padding:14px 0 14px 28px;margin:34px 0}
+
+  /* stat row */
+  .statline{display:flex;gap:14px;flex-wrap:wrap;margin:28px 0}
+  .sl{flex:1;min-width:150px;background:linear-gradient(160deg,#14110a,#0c0a06);
+    border:1px solid rgba(201,162,39,.22);border-radius:14px;padding:22px;text-align:center}
+  .sl.bad{border-color:rgba(224,138,138,.3)}
+  .sl .v{font-family:var(--serif);font-size:40px;font-weight:600;color:var(--gold-l);line-height:1}
+  .sl.bad .v{color:#e89090}
+  .sl .l{color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-top:8px}
+
+  /* insight box */
+  .box{background:rgba(201,162,39,.06);border:1px solid rgba(201,162,39,.25);border-radius:16px;padding:26px 30px;margin:28px 0}
+  .box.ai{background:rgba(70,228,255,.05);border-color:rgba(70,228,255,.3)}
+  .box .h{font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;color:var(--gold)}
+  .box.ai .h{color:var(--ai)}
+  .box p{color:#d8cfb2;font-size:14.5px;font-weight:300}
+  .box p b{color:var(--ink)}
+
+  /* AI grid */
+  .aigrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0}
+  .aibox{background:rgba(70,228,255,.05);border:1px solid rgba(70,228,255,.22);border-radius:14px;padding:20px}
+  .aibox .ic{font-size:26px;margin-bottom:10px}
+  .aibox .t{color:var(--ai);font-size:14px;font-weight:600;margin-bottom:5px}
+  .aibox .d{color:#9ab3b9;font-size:12px;line-height:1.5}
+
+  /* act / steps */
+  .act{display:grid;grid-template-columns:70px 1fr;gap:24px;margin:20px 0;
+    background:linear-gradient(160deg,#100d08,#0a0805);border:1px solid rgba(201,162,39,.18);
+    border-radius:20px;padding:30px 32px;position:relative;overflow:hidden}
+  .act::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold-l),var(--gold-d))}
+  .act .n{font-family:var(--serif);font-size:54px;font-weight:700;color:transparent;-webkit-text-stroke:1.3px var(--gold);text-align:center;line-height:1}
+  .act .em{font-size:30px;text-align:center;margin-top:10px}
+  .act h3{font-family:var(--serif);font-size:27px;color:var(--gold-l);font-weight:600;margin-bottom:3px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .act .when{color:var(--dim);font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:15px}
+  .aitag{display:inline-flex;align-items:center;gap:4px;background:rgba(70,228,255,.12);border:1px solid rgba(70,228,255,.35);
+    color:var(--ai);font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:20px;font-family:var(--sans)}
+  .act .row{margin-bottom:11px}
+  .act .k{color:var(--gold);font-size:10px;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:2px}
+  .act .t2{color:#cfc6ad;font-size:14px}
+  .act .t2 b{color:var(--ink)}.act .t2 .ai{color:var(--ai);font-weight:600}
+  .act .goal{margin-top:12px;background:rgba(201,162,39,.08);border:1px dashed rgba(201,162,39,.4);border-radius:8px;padding:11px 15px;color:var(--gold-l);font-size:13px}
+  .act .goal b{color:#fff}
+
+  /* funnel */
+  .funnel{display:flex;flex-direction:column;gap:8px;margin:16px 0}
+  .fs{background:linear-gradient(90deg,rgba(201,162,39,.13),transparent);border-left:3px solid var(--gold);
+    padding:12px 18px;border-radius:0 8px 8px 0;display:flex;gap:13px;align-items:center;font-size:13.5px;color:#cfc6ad}
+  .fs.ai{background:linear-gradient(90deg,rgba(70,228,255,.13),transparent);border-left-color:var(--ai)}
+  .fs b{color:var(--gold-l)}.fs.ai b{color:var(--ai)}
+  .fs:nth-child(2){margin-left:6%}.fs:nth-child(3){margin-left:12%}.fs:nth-child(4){margin-left:18%}.fs:nth-child(5){margin-left:24%}
+
+  /* money table */
+  .tbl{width:100%;border-collapse:collapse;margin:24px 0}
+  .tbl th{color:var(--gold);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;text-align:left;padding:12px 14px;border-bottom:1px solid rgba(201,162,39,.3)}
+  .tbl td{padding:13px 14px;border-bottom:1px solid rgba(201,162,39,.1);color:#cfc6ad;font-size:14px}
+  .tbl td b{color:var(--ink)}
+  .tbl tr:hover td{background:rgba(201,162,39,.04)}
+  .big-num{font-family:var(--serif);font-size:64px;font-weight:700;color:var(--gold-l);text-align:center;margin:10px 0;line-height:1}
+  .big-cap{text-align:center;color:var(--muted);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:30px}
+
+  /* ════ FINALE ════ */
+  .finale{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 24px}
+  .finale .crest{font-size:60px;filter:drop-shadow(0 0 30px rgba(244,228,166,.6));margin-bottom:20px}
+  .finale h2{font-family:var(--serif);font-size:48px;font-weight:600;line-height:1.15;max-width:740px;
+    background:linear-gradient(180deg,#fff6dc,#f4e4a6 50%,#c9a227);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .finale .ai-line{color:var(--ai);font-size:13px;letter-spacing:4px;text-transform:uppercase;margin-top:22px}
+  .finale .sub{color:var(--muted);font-size:16px;font-weight:300;margin-top:20px;max-width:580px;font-family:var(--serif);font-style:italic;font-size:21px}
+  .cta-btn{margin-top:40px;display:inline-block;padding:18px 48px;border-radius:12px;
+    background:linear-gradient(90deg,#c9a227,#f4e4a6 50%,#c9a227);color:#14110a;
+    font-weight:700;font-size:14px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;
+    box-shadow:0 16px 40px rgba(201,162,39,.25)}
+  .links{margin-top:26px;color:var(--dim);font-size:13px;letter-spacing:1px}
+  .links a{color:var(--gold);text-decoration:none}
+
+  .footer{text-align:center;padding:30px;border-top:1px solid rgba(201,162,39,.18);color:var(--dim);font-size:11px;letter-spacing:2px;position:relative;z-index:1}
+  .footer b{color:var(--ai)}
+
+  @media(max-width:680px){
+    .cover h1{font-size:44px}.ch-title{font-size:34px}.aigrid{grid-template-columns:1fr}
+    .act{grid-template-columns:1fr}.act .n{font-size:40px}.statline{flex-direction:column}
+    .finale h2{font-size:34px}
+  }
+</style>
+</head>
+<body>
+<div class="bg-fx"></div>
+
+<!-- ═══════════ COVER ═══════════ -->
+<header class="cover">
+  <div class="ai-pill"><span class="dot"></span>Powered by Artificial Intelligence 🤖</div>
+  <div class="crest">💫</div>
+  <h1>Из Династии<br>Звёзд</h1>
+  <div class="tagline">Той-пудель · Мальтипу · Мальтезе</div>
+  <div class="promise">Сага о восхождении: как превратить питомник в premium-бренд №1, которым управляет искусственный интеллект.</div>
+  <div class="scroll-cue">↓ листайте — это история вашего успеха</div>
+</header>
+
+<div class="wrap">
+
+  <!-- ГЛАВА 1 -->
+  <section class="chapter reveal">
+    <div class="ch-no">Глава первая</div>
+    <h2 class="ch-title">Сокровище, которое <span class="g">никто не видит</span></h2>
+    <p class="lede">У вас на руках бриллиант. Только лежит он в пыльной витрине, среди тысяч таких же объявлений.</p>
+    <p class="body">Питомник «Из Династии Звёзд» — это не «продажа собак». Это <b>родословные РКФ, клеймо, чип, baby-face, импортные прививки, гарантия здоровья</b>. Щенки, которых вы растите с любовью и доверяете в семьи по 120 000 ₽. Это верхний сегмент — выше рыночной медианы в 80 000 ₽.</p>
+    <p class="body">За плечами уже целая империя контента: <b>6 340 подписчиков, 26 800 фотографий, 5 290 видео</b>. Машина, которая годами создавала ценность.</p>
+    <div class="pull">Но сокровище, которое никто не видит, не приносит дохода.</div>
+    <p class="body">Каждый день вы постите шедевры — а их видят лишь 312 человек. Бриллиант лежит лицом вниз.</p>
+  </section>
+
+  <!-- ГЛАВА 2 -->
+  <section class="chapter reveal">
+    <div class="ch-no">Глава вторая</div>
+    <h2 class="ch-title">Жестокая <span class="g">правда цифр</span></h2>
+    <p class="lede">Мы не гадали. Мы замерили всё вживую — и вот что открылось.</p>
+    <div class="statline">
+      <div class="sl"><div class="v">6.34K</div><div class="l">Подписчиков</div></div>
+      <div class="sl bad"><div class="v">312</div><div class="l">Просмотров / пост</div></div>
+      <div class="sl bad"><div class="v">~5%</div><div class="l">Реальный охват</div></div>
+    </div>
+    <p class="body">Из 6 340 подписчиков пост видят лишь <b>300</b>. Это <b>5% охвата</b> — при норме 20–40%. Девять из десяти ваших людей <b>не видят</b> ни одного щенка. Telegram душит канал — и вот почему.</p>
+    <div class="box">
+      <div class="h">🔍 Что показало вскрытие</div>
+      <p>Каждый пост — под копирку: «<b>свободна девочка, документы РКФ, приятная цена, успевайте 🔥</b>», телефон, синие стрелочки. Алгоритм видит однообразное объявление — и не показывает его людям. Бриллиант продаётся как картошка с лотка.</p>
+    </div>
+    <p class="body">И ещё одна рана: телефон в каждом посте уводит клиента в личку, где <b>его невозможно ни отследить, ни вернуть</b>. Тёплые покупатели утекают сквозь пальцы навсегда.</p>
+  </section>
+
+  <!-- ГЛАВА 3 -->
+  <section class="chapter reveal">
+    <div class="ch-no">Глава третья</div>
+    <h2 class="ch-title">Прозрение, спрятанное<br>в <span class="g">ваших же постах</span></h2>
+    <p class="lede">Ответ был всё это время у вас под носом. Мы просто посчитали.</p>
+    <p class="body">Когда вы постите <b>историю</b> — «Тедди передаёт привет», «провожали Орхидею на самолёт в новую семью» — пост набирает <b>400–421 просмотр</b>. Когда постите сухое объявление — <b>215–310</b>.</p>
+    <div class="pull">Эмоция даёт +30–50% охвата. Бесплатно. Сегодня.</div>
+    <p class="body">Люди не репостят «продаётся щенок». Люди репостят <b>истории, от которых тает сердце</b>. Алгоритм Telegram любит то же самое — досматривание, реакции, пересылки. Ваш контент уже доказал это. Осталось перестать прятать золото за словом «успевайте».</p>
+  </section>
+
+  <!-- ГЛАВА 4 — AI -->
+  <section class="chapter reveal">
+    <div class="ch-no">Глава четвёртая</div>
+    <h2 class="ch-title">Оружие, которого нет<br>ни у кого: <span class="a">искусственный интеллект</span></h2>
+    <p class="lede">Из 8 399 питомников на рынке так не делает никто. Это и станет вашим лицом.</p>
+    <p class="body">Представьте: клиент пишет «живу в квартире, работаю много, хочу спокойного мини-компаньона» — и <span class="ai">AI сам подбирает</span> ему щенка, отвечает на вопросы в любое время суток, ведёт за руку до самой покупки. А контент-машина <span class="ai">сама нарезает</span> тысячи роликов из вашего архива.</p>
+    <div class="box ai">
+      <div class="h">🤖 Не питомник. Премиум-питомник нового поколения.</div>
+      <p>«Купить у питомника с AI» = «купить у лидеров будущего», а не «найти на Авито». Это оправдывает топ-цену, рождает вирусные разговоры и ставит вас на голову выше всех конкурентов.</p>
+    </div>
+    <div class="aigrid">
+      <div class="aibox"><div class="ic">🤖</div><div class="t">AI-Консьерж</div><div class="d">Подбирает щенка под образ жизни. Умный ассистент, не продавец.</div></div>
+      <div class="aibox"><div class="ic">💬</div><div class="t">AI 24/7</div><div class="d">Уход, питание, вакцины — ответ в любую минуту.</div></div>
+      <div class="aibox"><div class="ic">🎬</div><div class="t">AI-Контент</div><div class="d">Сам ведёт канал: тысячи роликов в едином стиле.</div></div>
+      <div class="aibox"><div class="ic">🧬</div><div class="t">AI-Подбор пары</div><div class="d">Сватовство: темперамент щенка ↔ характер хозяина.</div></div>
+      <div class="aibox"><div class="ic">🔔</div><div class="t">AI-Забота</div><div class="d">Напоминает о прививках, груминге, дне рождения.</div></div>
+      <div class="aibox"><div class="ic">📊</div><div class="t">AI-Аналитика</div><div class="d">Видит, что заходит, и усиливает рост сама.</div></div>
+    </div>
+  </section>
+
+  <!-- ГЛАВА 5 — ПУТЬ -->
+  <section class="chapter reveal">
+    <div class="ch-no">Глава пятая</div>
+    <h2 class="ch-title">Путь наверх: <span class="g">пять восхождений</span></h2>
+    <p class="lede">От пыльной витрины — к трону ниши. Шаг за шагом, каждый — с целью.</p>
+
+    <div class="act">
+      <div><div class="n">I</div><div class="em">👑</div></div>
+      <div>
+        <h3>Золотой фундамент <span class="aitag">🤖 AI-дизайн</span></h3>
+        <div class="when">Недели 1–2 · Рождение бренда</div>
+        <div class="row"><span class="k">Что</span><span class="t2">Логотип, золотая карточка-сертификат с меткой <span class="ai">AI-Powered</span>, фирменная шапка. <span class="ai">AI генерирует</span> единый премиум-стиль каждого щенка.</span></div>
+        <div class="row"><span class="k">Зачем</span><span class="t2">Чтобы за 1 секунду читалось: <b>«элита будущего, а не барахолка»</b>.</span></div>
+        <div class="goal">🎯 Канал выглядит на миллион. Доверие = первые продажи дороже.</div>
+      </div>
+    </div>
+
+    <div class="act">
+      <div><div class="n">II</div><div class="em">🎬</div></div>
+      <div>
+        <h3>Машина историй <span class="aitag">🤖 AI-контент</span></h3>
+        <div class="when">Недели 2–4 · Пробуждение охвата</div>
+        <div class="row"><span class="k">Что</span><span class="t2"><span class="ai">AI нарезает</span> 26.8K фото в ролики-истории: «День из жизни щенка», «дорога в новую семью». 3–5 в день.</span></div>
+        <div class="row"><span class="k">Зачем</span><span class="t2">Истории = +30–50% охвата (ваши данные). Каждый пост работает на рост, а не умирает на 300.</span></div>
+        <div class="goal">🎯 Охват 312 → 600+. Конвейер запущен.</div>
+      </div>
+    </div>
+
+    <div class="act">
+      <div><div class="n">III</div><div class="em">🚀</div></div>
+      <div>
+        <h3>Вирусная воронка <span class="aitag">🤖 AI-дистрибуция</span></h3>
+        <div class="when">Недели 3–6 · Взрыв роста</div>
+        <div class="funnel">
+          <div class="fs"><span>📱</span><span><b>Reels / TikTok / VK Клипы</b> — вирусное видео</span></div>
+          <div class="fs"><span>👀</span><span>Тысячи новых зрителей видят милоту</span></div>
+          <div class="fs"><span>➡️</span><span>«Весь питомник — в Telegram»</span></div>
+          <div class="fs"><span>⭐</span><span>Подписка на канал</span></div>
+          <div class="fs ai"><span>🤖</span><span><b>AI-бот ловит контакт</b> → продажа</span></div>
+        </div>
+        <div class="row"><span class="k">Зачем</span><span class="t2">Внутри Telegram роста нет — он приходит снаружи. <span class="ai">AI раскидывает</span> 1 ролик на 5 платформ. + giveaway, взаимопиар, рефералы.</span></div>
+        <div class="goal">🎯 Подписчики 6.3K → 12–15K реальных. Охват 1000–1500.</div>
+      </div>
+    </div>
+
+    <div class="act">
+      <div><div class="n">IV</div><div class="em">🤖</div></div>
+      <div>
+        <h3>AI-Консьерж — сердце <span class="aitag">🤖 ядро</span></h3>
+        <div class="when">Недели 4–7 · Машина продаж</div>
+        <div class="row"><span class="k">Что</span><span class="t2"><span class="ai">AI-бот «Подбор щенка из Династии»</span>: спрашивает образ жизни, рекомендует малыша, ловит контакт, сопровождает 24/7.</span></div>
+        <div class="row"><span class="k">Зачем</span><span class="t2">«Вау» дорогого сегмента. Тёплые лиды больше не теряются — каждый превращается в продажу.</span></div>
+        <div class="goal">🎯 Своя база лидов, измеримая воронка, главная фишка бренда работает.</div>
+      </div>
+    </div>
+
+    <div class="act">
+      <div><div class="n">V</div><div class="em">🏛️</div></div>
+      <div>
+        <h3>Трон ниши <span class="aitag">🤖 AI-экосистема</span></h3>
+        <div class="when">Недели 7–12 · Царствование</div>
+        <div class="row"><span class="k">Что</span><span class="t2">Клуб владельцев с <span class="ai">AI-сопровождением</span>, умная забота, стена отзывов выпускников, резерв платформ (VK, MAX).</span></div>
+        <div class="row"><span class="k">Зачем</span><span class="t2">Лидер — не тот, у кого дешевле, а тот, кому доверяют. «Первый AI-питомник» = эталон ниши.</span></div>
+        <div class="goal">🎯 Очередь за щенками, а не поиск покупателей.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ГЛАВА 6 — ДЕНЬГИ -->
+  <section class="chapter reveal">
+    <div class="ch-no">Глава шестая</div>
+    <h2 class="ch-title">Откуда польётся <span class="g">золото</span></h2>
+    <p class="lede">Шесть потоков дохода вместо одного. И главное — деньги ПОМИМО продажи щенков.</p>
+    <table class="tbl">
+      <tr><th>Поток дохода</th><th>Запуск</th><th>Потенциал</th></tr>
+      <tr><td><b>1. Щенки премиум</b> (рост чека +15–25%)</td><td>есть</td><td>Высокий</td></tr>
+      <tr><td><b>2. 🤖 AI-Консьерж</b> (premium-подбор)</td><td>0–30 дн</td><td>Очень высокий</td></tr>
+      <tr><td><b>3. Клуб владельцев</b> (990–2990₽/мес)</td><td>30–60 дн</td><td>Стабильный</td></tr>
+      <tr><td><b>4. Affiliate</b> (корм, аксессуары)</td><td>0–30 дн</td><td>0 затрат</td></tr>
+      <tr><td><b>5. Груминг и услуги</b></td><td>30–60 дн</td><td>Средний</td></tr>
+      <tr><td><b>6. Breeder Network</b> (платформа)</td><td>90+ дн</td><td>Очень высокий</td></tr>
+    </table>
+    <div class="box">
+      <div class="h">💰 Ключ к сердцу клиента</div>
+      <p>Доп. потоки дают <b>~145 000 ₽/мес БЕЗ роста числа щенков</b> — то, о чём вы просили. А охват-машина параллельно поднимает и продажи самих щенков. Два двигателя вместо одного.</p>
+    </div>
+  </section>
+
+  <!-- ГЛАВА 7 — ТРИУМФ -->
+  <section class="chapter reveal">
+    <div class="ch-no">Глава седьмая · Финал</div>
+    <h2 class="ch-title">Куда мы придём за <span class="g">90 дней</span></h2>
+    <div class="big-num">×4–5</div>
+    <div class="big-cap">рост охвата · путь наверх</div>
+    <table class="tbl">
+      <tr><th>Метрика</th><th>Сейчас</th><th>90 дней</th></tr>
+      <tr><td><b>Охват поста</b></td><td>312</td><td><b>1000–1500</b></td></tr>
+      <tr><td><b>Подписчики</b></td><td>6.34K</td><td><b>12–15K</b></td></tr>
+      <tr><td><b>🤖 AI-лиды / мес</b></td><td>0</td><td><b>200+</b></td></tr>
+      <tr><td><b>Средний чек</b></td><td>120K ₽</td><td><b>135–150K ₽</b></td></tr>
+      <tr><td><b>Статус в нише</b></td><td>1 из 8399</td><td><b>AI premium №1</b></td></tr>
+    </table>
+  </section>
+
+</div>
+
+<!-- ═══════════ FINALE ═══════════ -->
+<section class="finale reveal">
+  <div class="crest">💫</div>
+  <h2>«Мы не продаём щенков.<br>Мы открываем двери<br>в Династию.»</h2>
+  <div class="ai-line">🤖 Управляется искусственным интеллектом</div>
+  <div class="sub">Премиум-питомник нового поколения, где AI ведёт контент, подбирает щенка и заботится о каждой звезде.</div>
+  <a class="cta-btn" href="https://t.me/Poodle_first" target="_blank">Войти в Династию →</a>
+  <div class="links">@Poodle_first · <a href="https://vk.com/poodle_first">vk.com/poodle_first</a></div>
+</section>
+
+<div class="footer">Из Династии Звёзд · Сага о восхождении · <b>🤖 AI-POWERED</b> · 💫 · Бобби Аксельрод × Евгений</div>
+
+<script>
+  // reveal на скролле
+  const io = new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
