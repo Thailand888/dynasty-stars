@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Династия Звёзд — Центр управления</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
+  :root{
+    --gold:#d4af37; --gold-bright:#f3d77a; --gold-deep:#a9842a;
+    --teal:#1fb6a6; --teal-soft:#4fd9c9;
+    --ink:#070a0e; --panel:#0d1218; --panel2:#11181f; --line:#1f2a33; --muted:#7d8b97;
+    --green:#3fbf6a; --amber:#e0a83a; --red:#c0545d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1300px 800px at 50% -8%,#0f1620,#070a0e 58%);color:#e8edf2;font-family:'Manrope',sans-serif;min-height:100vh;padding:28px 26px 70px}
+  .top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;max-width:1240px;margin:0 auto 30px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:16px}
+  .brand svg{width:52px;height:52px;flex:none}
+  .brand .tt{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:25px;letter-spacing:.04em}
+  .brand .sub{font-size:11px;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-top:2px}
+  .status{display:flex;align-items:center;gap:9px;background:rgba(63,191,106,.1);border:1px solid rgba(63,191,106,.35);padding:9px 16px;border-radius:30px}
+  .status .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+  .status span{font-size:12px;letter-spacing:.08em;color:var(--green)}
+  .wrap{max-width:1240px;margin:0 auto}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:26px}
+  @media(max-width:880px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .kpi .l{font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+  .kpi .v{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;margin-top:6px}
+  .kpi .d{font-size:11px;margin-top:4px;color:var(--muted)}
+  .kpi .d.bad{color:var(--red)} .kpi .d.good{color:var(--green)}
+  .grid{display:grid;grid-template-columns:1.4fr 1fr;gap:20px}
+  @media(max-width:980px){.grid{grid-template-columns:1fr}}
+  .col{display:flex;flex-direction:column;gap:20px}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+  .card h2{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--teal-soft);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+  .card h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+  /* tools */
+  .tool{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(31,42,51,.6);text-decoration:none;color:inherit;transition:.15s}
+  .tool:last-child{border-bottom:none}
+  .tool:hover{padding-left:6px}
+  .tool .ic{width:38px;height:38px;border-radius:10px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.25);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+  .tool .tx b{display:block;font-size:14px;font-weight:600}
+  .tool .tx span{font-size:12px;color:var(--muted);font-weight:300}
+  .tool .arr{margin-left:auto;color:var(--gold-deep);font-size:18px}
+  /* stages */
+  .stage{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(31,42,51,.6)}
+  .stage:last-child{border-bottom:none}
+  .stage .mk{width:24px;height:24px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+  .stage .mk.done{background:rgba(63,191,106,.16);border:1px solid var(--green);color:var(--green)}
+  .stage .mk.now{background:rgba(224,168,58,.16);border:1px solid var(--amber);color:var(--amber)}
+  .stage .mk.next{background:rgba(125,139,151,.1);border:1px solid var(--muted);color:var(--muted)}
+  .stage .tx b{font-size:14px;display:block}
+  .stage .tx span{font-size:12px;color:var(--muted);font-weight:300;line-height:1.5}
+  /* checklist */
+  .chk{display:flex;align-items:flex-start;gap:11px;padding:9px 0;font-size:13.5px;line-height:1.5}
+  .chk .b{width:18px;height:18px;border-radius:5px;flex:none;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:11px}
+  .chk .b.on{background:var(--green);color:#06210f} .chk .b.off{border:1px solid var(--muted);color:transparent}
+  .chk.off-t{color:var(--muted)}
+  .note{font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;margin-top:6px}
+  .foot{text-align:center;color:var(--muted);font-size:12px;font-weight:300;margin-top:34px;line-height:1.7}
+  .foot b{color:var(--gold)}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="brand">
+      <svg viewBox="0 0 100 100"><defs><linearGradient id="sa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe9a8"/><stop offset="1" stop-color="#d4af37"/></linearGradient><linearGradient id="sb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c79e30"/><stop offset="1" stop-color="#8f6e22"/></linearGradient></defs><g transform="translate(50 50)"><polygon points="0,-40 6,-5 0,0 -6,-5" fill="url(#sa)"/><polygon points="0,40 6,5 0,0 -6,5" fill="url(#sb)"/><polygon points="-40,0 -5,-6 0,0 -5,6" fill="url(#sb)"/><polygon points="40,0 5,-6 0,0 5,6" fill="url(#sa)"/><polygon points="-28,-27 -4,-4 0,0 -5,-5" fill="url(#sa)"/><polygon points="28,-27 4,-4 0,0 5,-5" fill="url(#sb)"/><polygon points="-28,27 -4,4 0,0 -5,5" fill="url(#sb)"/><polygon points="28,27 4,4 0,0 5,5" fill="url(#sa)"/><circle r="3" fill="#fff6dd"/><ellipse rx="46" ry="17" fill="none" stroke="#1fb6a6" stroke-width=".8" opacity=".5" transform="rotate(-18)"/></g></svg>
+      <div><div class="tt">Династия Звёзд</div><div class="sub">Центр управления проектом</div></div>
+    </div>
+    <div class="status"><div class="dot"></div><span>ЭТАП 1 · FOUNDATION · АКТИВЕН</span></div>
+  </div>
+
+  <div class="wrap">
+    <!-- KPI -->
+    <div class="kpis">
+      <div class="kpi"><div class="l">Telegram</div><div class="v">6.34K</div><div class="d bad">охват 200-300 · 3-5% ▼</div></div>
+      <div class="kpi"><div class="l">VK</div><div class="v">744</div><div class="d">второй канал</div></div>
+      <div class="kpi"><div class="l">Сегмент цены</div><div class="v">120к</div><div class="d good">верх рынка (медиана 80к)</div></div>
+      <div class="kpi"><div class="l">Конкуренты Avito</div><div class="v">8399</div><div class="d">наш козырь — AI 🤖</div></div>
+    </div>
+
+    <div class="grid">
+      <div class="col">
+        <!-- TOOLS -->
+        <div class="card">
+          <h2>🛠 Инструменты проекта</h2>
+          <a class="tool" href="logo/brand_kit.html"><div class="ic">🎨</div><div class="tx"><b>Brand Kit</b><span>Логотип, палитра, шрифты, правила</span></div><div class="arr">→</div></a>
+          <a class="tool" href="post_generator.html"><div class="ic">💎</div><div class="tx"><b>Генератор карточек щенка</b><span>Премиум-карточка вместо объявления</span></div><div class="arr">→</div></a>
+          <a class="tool" href="https://thailand888.github.io/dynasty-stars/"><div class="ic">🌐</div><div class="tx"><b>Лендинг (в сети)</b><span>thailand888.github.io/dynasty-stars</span></div><div class="arr">→</div></a>
+          <a class="tool" href="growth_strategy_lux.html"><div class="ic">🥇</div><div class="tx"><b>Стратегия восхождения</b><span>5 этапов с AI-стержнем</span></div><div class="arr">→</div></a>
+          <a class="tool" href="CONTENT_PLAYBOOK.md"><div class="ic">📈</div><div class="tx"><b>Контент-плейбук</b><span>Как убить мёртвый охват: истории, хуки, рубрики</span></div><div class="arr">→</div></a>
+          <a class="tool" href="BUSINESS_PLAN.md"><div class="ic">📋</div><div class="tx"><b>Бизнес-план</b><span>11 разделов, юнит-экономика</span></div><div class="arr">→</div></a>
+          <a class="tool" href="billing/README.md"><div class="ic">💰</div><div class="tx"><b>Учёт работы (биллинг)</b><span>Расход токенов → счёт клиенту</span></div><div class="arr">→</div></a>
+        </div>
+
+        <!-- STAGES -->
+        <div class="card">
+          <h2>🚀 Дорожная карта · 90 дней</h2>
+          <div class="stage"><div class="mk now">1</div><div class="tx"><b>Foundation (0–30 дней) — СЕЙЧАС</b><span>Бренд ✓ · золотой шаблон ✓ · контент-плейбук ✓ · далее: AI-консьерж-бот, реанимация охвата, единый стиль канала</span></div></div>
+          <div class="stage"><div class="mk next">2</div><div class="tx"><b>Growth (30–60 дней)</b><span>Клуб владельцев, реферальная программа, коллаборации, Reels/TikTok→TG воронка</span></div></div>
+          <div class="stage"><div class="mk next">3</div><div class="tx"><b>Monetization (60–90 дней)</b><span>Подписки, AI puppy matching, verified-заводчики, линейка ухода 🧴</span></div></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <!-- CHECKLIST -->
+        <div class="card">
+          <h2>✅ Чеклист Этапа 1</h2>
+          <div class="chk"><div class="b on">✓</div>Финальный логотип (Звезда-огранка + вензель ДЗ)</div>
+          <div class="chk"><div class="b on">✓</div>Brand Kit (палитра, шрифты, правила)</div>
+          <div class="chk"><div class="b on">✓</div>PNG-ассеты (аватар, горизонт-лого, печать)</div>
+          <div class="chk"><div class="b on">✓</div>Золотой генератор карточек щенка</div>
+          <div class="chk"><div class="b on">✓</div>Контент-плейбук против мёртвого охвата</div>
+          <div class="chk"><div class="b on">✓</div>Система учёта работы (биллинг)</div>
+          <div class="chk off-t"><div class="b off">·</div>AI-консьерж-бот (Telegram + подбор щенка)</div>
+          <div class="chk off-t"><div class="b off">·</div>Сменить аватар/шапку канала на новый бренд</div>
+          <div class="chk off-t"><div class="b off">·</div>Запустить формат историй (первая неделя)</div>
+        </div>
+
+        <!-- AI CORE -->
+        <div class="card">
+          <h2>🤖 AI-стержень бренда</h2>
+          <div class="note">
+            «Первый питомник, которым управляет AI» — наше отличие от 8399 конкурентов и оправдание премиум-цены.<br><br>
+            <b style="color:var(--teal-soft)">AI-консьерж</b> — подбор щенка по образу жизни, FAQ 24/7, уход/питание, бронь. Ведёт лиды в воронку вместо телефона в постах.<br><br>
+            <b style="color:var(--teal-soft)">AI-контент</b> — генерация карточек, субтитры, переводы, монтаж Reels.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">
+      Центр управления «Династия Звёзд» · собран Бобби 🐅 · Этап 1 Foundation<br>
+      <b>Агентство:</b> этот дашборд — шаблон. Новый проект/клиент = копия папки + свои данные. Масштабируется на очередь клиентов.
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Из Династии Звёзд — Генератор карточек щенка</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
+  :root{
+    --gold:#d4af37; --gold-bright:#f3d77a; --gold-deep:#a9842a; --gold-pale:#fbe9a8;
+    --teal:#1fb6a6; --teal-soft:#4fd9c9;
+    --ink:#070a0e; --panel:#0d1218; --panel2:#11181f; --line:#1f2a33; --muted:#7d8b97; --paper:#f4efe4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1000px 700px at 50% -10%,#0f1620,#070a0e 60%);color:#e8edf2;font-family:'Manrope',sans-serif;min-height:100vh;padding:40px 24px}
+  .top{text-align:center;margin-bottom:40px}
+  .top .k{font-size:11px;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+  .top h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px}
+  .top p{color:var(--muted);margin-top:10px;font-size:14px;font-weight:300}
+  .layout{display:grid;grid-template-columns:380px 1fr;gap:40px;max-width:1080px;margin:0 auto;align-items:start}
+  @media(max-width:880px){.layout{grid-template-columns:1fr}}
+  /* form */
+  .form{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px;position:sticky;top:24px}
+  .form h3{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-soft);margin-bottom:20px}
+  .fld{margin-bottom:16px}
+  .fld label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;letter-spacing:.04em}
+  .fld input,.fld select{width:100%;background:#0a0f14;border:1px solid var(--line);border-radius:9px;padding:11px 13px;color:#e8edf2;font-family:inherit;font-size:14px}
+  .fld input:focus,.fld select:focus{outline:none;border-color:var(--gold-deep)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .docs{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .docs label{display:flex;align-items:center;gap:6px;font-size:12px;color:#cfd8df;cursor:pointer;background:#0a0f14;border:1px solid var(--line);padding:7px 11px;border-radius:8px}
+  .docs input{width:auto}
+  .btn{width:100%;margin-top:8px;background:linear-gradient(135deg,var(--gold-bright),var(--gold),var(--gold-deep));color:#1a1408;border:none;border-radius:10px;padding:13px;font-weight:700;font-size:14px;letter-spacing:.05em;cursor:pointer;font-family:inherit}
+  .btn:hover{filter:brightness(1.08)}
+  .hint{font-size:11px;color:var(--muted);margin-top:14px;line-height:1.6;font-weight:300}
+  /* CARD preview */
+  .preview{display:flex;justify-content:center}
+  .card{
+    width:440px;background:linear-gradient(160deg,#14110a,#1c1810 45%,#0d0b07);
+    border-radius:24px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 0 1px rgba(201,162,39,.25);
+  }
+  .card::before{content:"";position:absolute;inset:13px;border-radius:15px;padding:1.5px;
+    background:linear-gradient(135deg,#c9a227,#f4e4a6,#c9a227,#8a6d18);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:3}
+  .c-head{text-align:center;padding:24px 0 6px;position:relative;z-index:2}
+  .c-star{margin:0 auto;width:46px;height:46px}
+  .c-brand{font-family:'Cormorant Garamond',serif;font-size:17px;letter-spacing:3px;color:var(--gold-bright);margin-top:4px}
+  .c-sub{font-size:8px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-top:2px}
+  .c-photo{margin:14px 22px 0;height:300px;border-radius:12px;background:#0a0805 center/cover no-repeat;position:relative;border:1px solid rgba(201,162,39,.3);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .c-photo .ph{color:#5a4d2e;font-size:12px;text-align:center;padding:20px}
+  .c-photo .ai{position:absolute;top:10px;right:10px;background:rgba(31,182,166,.18);border:1px solid var(--teal);color:var(--teal-soft);font-size:9px;letter-spacing:1px;padding:4px 9px;border-radius:20px;backdrop-filter:blur(4px)}
+  .c-name{text-align:center;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px;color:#f4efe4;margin-top:16px;position:relative;z-index:2}
+  .c-breed{text-align:center;font-size:12px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin-top:2px}
+  .c-specs{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:18px 22px 0;background:rgba(201,162,39,.18);border:1px solid rgba(201,162,39,.18);border-radius:10px;overflow:hidden;position:relative;z-index:2}
+  .c-specs div{background:#13100a;padding:10px 14px}
+  .c-specs .l{font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+  .c-specs .v{font-size:14px;color:#e8e2d0;margin-top:2px;font-weight:500}
+  .c-docs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:16px 22px 0;position:relative;z-index:2}
+  .c-docs span{font-size:10px;color:var(--gold-bright);border:1px solid rgba(201,162,39,.35);padding:4px 10px;border-radius:20px;letter-spacing:.05em}
+  .c-price{text-align:center;margin:18px 0 4px;position:relative;z-index:2}
+  .c-price .p{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold-bright);font-weight:600}
+  .c-cta{text-align:center;font-size:11px;color:var(--muted);padding:6px 0 22px;position:relative;z-index:2;letter-spacing:.04em}
+  .c-cta b{color:var(--teal-soft)}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="k">Генератор карточек · Brand v1.0</div>
+    <h1>Золотая карточка щенка 💎</h1>
+    <p>Заполни поля — карточка соберётся сама. Премиум вместо «доски объявлений». Без телефона — ведём в бот/личку.</p>
+  </div>
+
+  <div class="layout">
+    <div class="form">
+      <h3>Данные щенка</h3>
+      <div class="fld"><label>Кличка</label><input id="f-name" value="Орхидея" oninput="render()"></div>
+      <div class="fld"><label>Порода</label>
+        <select id="f-breed" onchange="render()">
+          <option>Той-пудель</option><option>Мальтипу</option><option>Мальтезе</option>
+        </select></div>
+      <div class="two">
+        <div class="fld"><label>Пол</label><select id="f-sex" onchange="render()"><option>Девочка</option><option>Мальчик</option></select></div>
+        <div class="fld"><label>Дата рождения</label><input id="f-dob" value="12.04.2026" oninput="render()"></div>
+      </div>
+      <div class="two">
+        <div class="fld"><label>Окрас</label><input id="f-color" value="Белый" oninput="render()"></div>
+        <div class="fld"><label>Размер</label><input id="f-size" value="Mini" oninput="render()"></div>
+      </div>
+      <div class="fld"><label>Цена</label><input id="f-price" value="120 000 ₽" oninput="render()"></div>
+      <div class="fld"><label>Документы</label>
+        <div class="docs">
+          <label><input type="checkbox" class="doc" value="Родословная РКФ" checked onchange="render()">РКФ</label>
+          <label><input type="checkbox" class="doc" value="Микрочип" checked onchange="render()">Чип</label>
+          <label><input type="checkbox" class="doc" value="Клеймо" checked onchange="render()">Клеймо</label>
+          <label><input type="checkbox" class="doc" value="Ветпаспорт" checked onchange="render()">Ветпаспорт</label>
+          <label><input type="checkbox" class="doc" value="Прививки" checked onchange="render()">Прививки</label>
+        </div>
+      </div>
+      <div class="fld"><label>Фото (URL или оставь пустым)</label><input id="f-photo" placeholder="https://..." oninput="render()"></div>
+      <button class="btn" onclick="window.print()">📸 Сохранить карточку (Печать / PDF)</button>
+      <div class="hint">Совет: сделай скриншот карточки справа в нужном размере, либо «Печать → Сохранить как PDF». Фото лучше квадратное.</div>
+    </div>
+
+    <div class="preview">
+      <div class="card" id="card">
+        <div class="c-head">
+          <svg class="c-star" viewBox="0 0 100 100"><defs><linearGradient id="sa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe9a8"/><stop offset="1" stop-color="#d4af37"/></linearGradient><linearGradient id="sb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c79e30"/><stop offset="1" stop-color="#8f6e22"/></linearGradient></defs><g transform="translate(50 50)"><polygon points="0,-40 6,-5 0,0 -6,-5" fill="url(#sa)"/><polygon points="0,40 6,5 0,0 -6,5" fill="url(#sb)"/><polygon points="-40,0 -5,-6 0,0 -5,6" fill="url(#sb)"/><polygon points="40,0 5,-6 0,0 5,6" fill="url(#sa)"/><polygon points="-28,-27 -4,-4 0,0 -5,-5" fill="url(#sa)"/><polygon points="28,-27 4,-4 0,0 5,-5" fill="url(#sb)"/><polygon points="-28,27 -4,4 0,0 -5,5" fill="url(#sb)"/><polygon points="28,27 4,4 0,0 5,5" fill="url(#sa)"/><circle r="3" fill="#fff6dd"/></g></svg>
+          <div class="c-brand">ИЗ ДИНАСТИИ ЗВЁЗД</div>
+          <div class="c-sub">Premium · AI · Родословная</div>
+        </div>
+        <div class="c-photo" id="c-photo"><div class="ph" id="c-ph">Здесь будет фото щенка<br>(вставь URL слева)</div><div class="ai">🤖 AI-проверен</div></div>
+        <div class="c-name" id="c-name">Орхидея</div>
+        <div class="c-breed" id="c-breed">Той-пудель · Девочка</div>
+        <div class="c-specs" id="c-specs"></div>
+        <div class="c-docs" id="c-docs"></div>
+        <div class="c-price"><div class="p" id="c-price">120 000 ₽</div></div>
+        <div class="c-cta">Знакомство и бронь — в <b>AI-консьерже</b> канала 💫</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+function render(){
+  const g=id=>document.getElementById(id);
+  const name=g('f-name').value||'—';
+  const breed=g('f-breed').value, sex=g('f-sex').value;
+  g('c-name').textContent=name;
+  g('c-breed').textContent=breed+' · '+sex;
+  g('c-price').textContent=g('f-price').value||'';
+  // specs
+  g('c-specs').innerHTML=`
+    <div><div class="l">Дата рождения</div><div class="v">${g('f-dob').value||'—'}</div></div>
+    <div><div class="l">Окрас</div><div class="v">${g('f-color').value||'—'}</div></div>
+    <div><div class="l">Размер</div><div class="v">${g('f-size').value||'—'}</div></div>
+    <div><div class="l">Порода</div><div class="v">${breed}</div></div>`;
+  // docs
+  const docs=[...document.querySelectorAll('.doc:checked')].map(d=>d.value);
+  g('c-docs').innerHTML=docs.map(d=>`<span>✓ ${d}</span>`).join('');
+  // photo
+  const url=g('f-photo').value.trim();
+  const ph=g('c-photo');
+  if(url){ph.style.background=`#0a0805 url('${url}') center/cover no-repeat`;g('c-ph').style.display='none';}
+  else{ph.style.background='#0a0805';g('c-ph').style.display='block';}
+}
+render();
+</script>
+</body>
+</html>
