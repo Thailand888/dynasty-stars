@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Из Династии Звёзд — Brand Kit</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
+  :root{
+    --gold:#d4af37; --gold-bright:#f3d77a; --gold-deep:#a9842a; --gold-pale:#fbe9a8;
+    --teal:#1fb6a6; --teal-soft:#4fd9c9;
+    --ink:#070a0e; --panel:#0d1218; --panel2:#11181f;
+    --line:#1f2a33; --muted:#7d8b97; --paper:#f4efe4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1200px 800px at 50% -10%, #0f1620 0%, var(--ink) 60%);color:#e8edf2;font-family:'Manrope',sans-serif;padding:0 0 90px}
+  .hero{text-align:center;padding:70px 24px 50px;border-bottom:1px solid var(--line);background:radial-gradient(600px 400px at 50% 0%, rgba(212,175,55,.07), transparent)}
+  .hero .k{font-size:12px;letter-spacing:.42em;color:var(--gold);text-transform:uppercase;margin-bottom:18px}
+  .hero h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:46px;letter-spacing:.02em}
+  .hero p{color:var(--muted);margin-top:14px;font-size:15px;font-weight:300}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  .sec{margin-top:64px}
+  .sec-h{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.34em;color:var(--teal-soft);text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:14px}
+  .sec-h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+  /* primary logo showcase */
+  .showcase{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:22px;padding:80px 56px;display:flex;align-items:center;justify-content:center;box-shadow:0 30px 70px rgba(0,0,0,.55)}
+  .showcase svg{max-width:560px;width:100%}
+  .row{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px}
+  @media(max-width:900px){.row{grid-template-columns:1fr}}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .tile .box{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;padding:26px}
+  .tile .box.dark{background:radial-gradient(300px 240px at 50% 40%,#10171f,#070a0e)}
+  .tile .box.light{background:var(--paper)}
+  .tile .box.circ svg{border-radius:50%}
+  .tile .cap{padding:14px 18px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);letter-spacing:.08em}
+  .tile .box svg{width:100%;height:100%}
+  /* palette */
+  .pal{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  @media(max-width:900px){.pal{grid-template-columns:repeat(3,1fr)}}
+  .sw{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .sw .c{height:88px}
+  .sw .t{padding:10px 12px;font-size:11px}
+  .sw .t b{display:block;color:#e8edf2;letter-spacing:.04em;margin-bottom:3px}
+  .sw .t span{color:var(--muted);font-variant-numeric:tabular-nums}
+  /* type */
+  .type{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 38px}
+  .type .lbl{font-size:11px;letter-spacing:.24em;color:var(--teal-soft);text-transform:uppercase;margin:18px 0 8px}
+  .type .lbl:first-child{margin-top:0}
+  .serif{font-family:'Cormorant Garamond',serif}
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px}
+  @media(max-width:900px){.rules{grid-template-columns:1fr}}
+  .rule{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+  .rule.ok{border-left:3px solid var(--teal)}
+  .rule.no{border-left:3px solid #b4434e}
+  .rule h4{font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+  .rule.ok h4{color:var(--teal-soft)} .rule.no h4{color:#e08a92}
+  .rule ul{list-style:none;font-size:13.5px;line-height:1.85;color:var(--muted);font-weight:300}
+  .rule li::before{content:"— ";color:var(--gold)}
+  .foot{text-align:center;color:var(--muted);font-size:13px;font-weight:300;margin-top:64px;line-height:1.7}
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="k">Brand Kit · v1.0</div>
+    <h1>Из Династии Звёзд 💫</h1>
+    <p>Той-пудель • Мальтипу • Мальтезе — щенки с родословной, характером и стилем</p>
+  </div>
+
+  <div class="wrap">
+
+    <!-- ОСНОВНОЙ ЛОГОТИП -->
+    <div class="sec">
+      <div class="sec-h">Основной знак · Звезда-огранка</div>
+      <div class="showcase">
+        <svg viewBox="0 0 760 340">
+          <defs>
+            <linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe9a8"/><stop offset="1" stop-color="#d4af37"/></linearGradient>
+            <linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c79e30"/><stop offset="1" stop-color="#8f6e22"/></linearGradient>
+            <radialGradient id="glow" cx="50%" cy="46%" r="55%"><stop offset="0" stop-color="#1fb6a6" stop-opacity=".16"/><stop offset="1" stop-color="#1fb6a6" stop-opacity="0"/></radialGradient>
+          </defs>
+          <circle cx="150" cy="170" r="125" fill="url(#glow)"/>
+          <g transform="translate(-50 10)">
+            <polygon points="200,56 214,150 200,160 186,150" fill="url(#ga)"/>
+            <polygon points="200,264 214,170 200,160 186,170" fill="url(#gb)"/>
+            <polygon points="96,160 190,146 200,160 190,174" fill="url(#gb)"/>
+            <polygon points="304,160 210,146 200,160 210,174" fill="url(#ga)"/>
+            <polygon points="128,90 192,152 200,160 188,148" fill="url(#ga)" opacity=".95"/>
+            <polygon points="272,90 208,152 200,160 212,148" fill="url(#gb)"/>
+            <polygon points="128,230 192,168 200,160 188,172" fill="url(#gb)"/>
+            <polygon points="272,230 208,168 200,160 212,172" fill="url(#ga)" opacity=".95"/>
+            <circle cx="200" cy="160" r="5.5" fill="#fff6dd"/>
+            <ellipse cx="200" cy="160" rx="118" ry="44" fill="none" stroke="#1fb6a6" stroke-width="1.2" opacity=".5" transform="rotate(-18 200 160)"/>
+            <circle cx="306" cy="128" r="3" fill="#4fd9c9"/>
+          </g>
+          <text x="430" y="150" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="500" font-size="34" letter-spacing="8" fill="#cfd8df">ИЗ ДИНАСТИИ</text>
+          <text x="430" y="210" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="62" letter-spacing="12" fill="url(#ga)">ЗВЁЗД</text>
+          <text x="430" y="244" text-anchor="middle" font-family="Manrope, sans-serif" font-weight="400" font-size="11" letter-spacing="5" fill="#7d8b97">PREMIUM · AI · РОДОСЛОВНАЯ</text>
+        </svg>
+      </div>
+
+      <div class="row">
+        <div class="tile"><div class="box dark circ"><svg viewBox="80 50 240 220"><polygon points="200,56 214,150 200,160 186,150" fill="#fbe9a8"/><polygon points="200,264 214,170 200,160 186,170" fill="#c79e30"/><polygon points="96,160 190,146 200,160 190,174" fill="#c79e30"/><polygon points="304,160 210,146 200,160 210,174" fill="#fbe9a8"/><polygon points="128,90 192,152 200,160 188,148" fill="#fbe9a8"/><polygon points="272,90 208,152 200,160 212,148" fill="#c79e30"/><polygon points="128,230 192,168 200,160 188,172" fill="#c79e30"/><polygon points="272,230 208,168 200,160 212,172" fill="#fbe9a8"/><circle cx="200" cy="160" r="6" fill="#fff6dd"/></svg></div><div class="cap">Аватар · тёмный</div></div>
+        <div class="tile"><div class="box light circ"><svg viewBox="80 50 240 220"><polygon points="200,56 214,150 200,160 186,150" fill="#d4af37"/><polygon points="200,264 214,170 200,160 186,170" fill="#8f6e22"/><polygon points="96,160 190,146 200,160 190,174" fill="#8f6e22"/><polygon points="304,160 210,146 200,160 210,174" fill="#d4af37"/><polygon points="128,90 192,152 200,160 188,148" fill="#d4af37"/><polygon points="272,90 208,152 200,160 212,148" fill="#8f6e22"/><polygon points="128,230 192,168 200,160 188,172" fill="#8f6e22"/><polygon points="272,230 208,168 200,160 212,172" fill="#d4af37"/><circle cx="200" cy="160" r="6" fill="#fffaf0"/></svg></div><div class="cap">Аватар · светлый</div></div>
+        <div class="tile"><div class="box dark circ"><svg viewBox="80 50 240 220"><g fill="#e8edf2"><polygon points="200,56 214,150 200,160 186,150"/><polygon points="200,264 214,170 200,160 186,170" opacity=".6"/><polygon points="96,160 190,146 200,160 190,174" opacity=".6"/><polygon points="304,160 210,146 200,160 210,174"/><polygon points="128,90 192,152 200,160 188,148"/><polygon points="272,90 208,152 200,160 212,148" opacity=".6"/><polygon points="128,230 192,168 200,160 188,172" opacity=".6"/><polygon points="272,230 208,168 200,160 212,172"/></g><circle cx="200" cy="160" r="6" fill="#fff"/></svg></div><div class="cap">Ч/Б · моно</div></div>
+      </div>
+    </div>
+
+    <!-- ВТОРОЙ ЗНАК - ВЕНЗЕЛЬ -->
+    <div class="sec">
+      <div class="sec-h">Второй знак · Вензель ДЗ (печать / сертификат)</div>
+      <div class="row">
+        <div class="tile"><div class="box dark"><svg viewBox="60 40 280 300"><defs><linearGradient id="vg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3d77a"/><stop offset=".5" stop-color="#d4af37"/><stop offset="1" stop-color="#a9842a"/></linearGradient></defs><circle cx="200" cy="180" r="104" fill="none" stroke="url(#vg)" stroke-width="2.2"/><circle cx="200" cy="180" r="96" fill="none" stroke="#d4af37" stroke-width=".8" opacity=".5"/><text x="200" y="214" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="96" letter-spacing="-6" fill="url(#vg)">ДЗ</text><path d="M200 92 l8 20 21 2 -16 15 5 21 -18 -11 -18 11 5 -21 -16 -15 21 -2 z" fill="url(#vg)"/></svg></div><div class="cap">Вензель · кольцо</div></div>
+        <div class="tile"><div class="box light"><svg viewBox="60 40 280 300"><circle cx="200" cy="180" r="104" fill="none" stroke="#a9842a" stroke-width="2.4"/><circle cx="200" cy="180" r="96" fill="none" stroke="#a9842a" stroke-width=".8" opacity=".5"/><text x="200" y="214" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="96" letter-spacing="-6" fill="#a9842a">ДЗ</text><path d="M200 92 l8 20 21 2 -16 15 5 21 -18 -11 -18 11 5 -21 -16 -15 21 -2 z" fill="#a9842a"/></svg></div><div class="cap">Печать · на документах</div></div>
+        <div class="tile"><div class="box dark"><svg viewBox="60 40 280 300"><text x="200" y="220" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="120" letter-spacing="-8" fill="#d4af37">ДЗ</text><path d="M200 100 l7 17 18 2 -13 12 4 18 -16 -9 -16 9 4 -18 -13 -12 18 -2 z" fill="#4fd9c9"/></svg></div><div class="cap">Монограмма · без кольца</div></div>
+      </div>
+    </div>
+
+    <!-- ПАЛИТРА -->
+    <div class="sec">
+      <div class="sec-h">Палитра</div>
+      <div class="pal">
+        <div class="sw"><div class="c" style="background:#070a0e"></div><div class="t"><b>Ink</b><span>#070A0E</span></div></div>
+        <div class="sw"><div class="c" style="background:#11181f"></div><div class="t"><b>Panel</b><span>#11181F</span></div></div>
+        <div class="sw"><div class="c" style="background:linear-gradient(135deg,#fbe9a8,#d4af37,#a9842a)"></div><div class="t"><b>Gold</b><span>#D4AF37</span></div></div>
+        <div class="sw"><div class="c" style="background:#1fb6a6"></div><div class="t"><b>Teal · AI</b><span>#1FB6A6</span></div></div>
+        <div class="sw"><div class="c" style="background:#f4efe4"></div><div class="t"><b>Paper</b><span>#F4EFE4</span></div></div>
+        <div class="sw"><div class="c" style="background:#7d8b97"></div><div class="t"><b>Muted</b><span>#7D8B97</span></div></div>
+      </div>
+    </div>
+
+    <!-- ТИПОГРАФИКА -->
+    <div class="sec">
+      <div class="sec-h">Типографика</div>
+      <div class="type">
+        <div class="lbl">Заголовки — Cormorant Garamond (ювелирный серив)</div>
+        <div class="serif" style="font-size:46px;font-weight:600">Из Династии Звёзд</div>
+        <div class="serif" style="font-size:28px;font-weight:500;color:var(--muted)">Здесь рождаются настоящие компаньоны</div>
+        <div class="lbl">Текст — Manrope (чистый гротеск)</div>
+        <div style="font-size:16px;font-weight:300;line-height:1.7;color:#cfd8df;max-width:640px">Премиальный питомник с родословной, чипом, клеймом и сопровождением. Первый питомник, которым управляет AI — подбор щенка по образу жизни, забота 24/7.</div>
+      </div>
+    </div>
+
+    <!-- ПРАВИЛА -->
+    <div class="sec">
+      <div class="sec-h">Правила использования</div>
+      <div class="rules">
+        <div class="rule ok"><h4>✓ Как надо</h4><ul><li>Золото на глубоком тёмном фоне — знак сияет</li><li>Воздух вокруг знака (защитное поле ≥ половины звезды)</li><li>Бирюза только как AI-акцент, дозированно</li><li>Серив для заголовков, гротеск для текста</li><li>Вензель ДЗ — на сертификатах, упаковке, печатях</li></ul></div>
+        <div class="rule no"><h4>✕ Чего нельзя</h4><ul><li>Не ставить золото на пёстрый/светлый шумный фон</li><li>Не растягивать и не наклонять знак</li><li>Не менять цвета на случайные</li><li>Не лепить телефон прямо на лого</li><li>Не использовать больше 2 шрифтов</li></ul></div>
+      </div>
+    </div>
+
+    <div class="foot">
+      Brand Kit «Из Династии Звёзд» · v1.0 · собран Бобби 🐅<br>
+      Чистый вектор — масштабируется без потерь. Флагман: Звезда-огранка. Печать: вензель ДЗ. AI-нотка: бирюза.
+    </div>
+
+  </div>
+</body>
+</html>
